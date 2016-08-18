@@ -13,3 +13,4 @@ teste2 = [teste(:, 1) teste(:, 2)];
 treino2 = [treino(:, 1) treino(:, 2)];
 resultado2 = classificarKNN( teste2, treino2, legendaTeste, legendaTreino );
 % Treinar o PCA no conjunto de treino.
+pca = PCA(treino);
