@@ -1,0 +1,4 @@
+sem pca usando 4 dimensoes = 0.9667
+sem pca usando 2 dimensoes = 0.7
+
+com pca usando 2 dimensoes = 0.9667

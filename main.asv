@@ -1,7 +1,7 @@
 clear;
 
 % carregar base
-[ matriz, legenda] = lerBase( './base/iris.txt' );
+[ matriz, legenda] = lerBase( './iris.txt' );
 % separar treino e teste
 [ treino, legendaTreino, teste, legendaTeste ] =  separaBase( matriz, legenda );
 % calcular taxa de acerto usando 1-NN (4 dimensoes)
@@ -19,7 +19,5 @@ projecaoTreino =  projetarPCA( treino, pca, mean(treino) );
 projecaoTeste =  projetarPCA( teste, pca, mean(treino) );
 % Gerar o gráfico para o conjunto de treino com as duas dimensões extraídas com PCA, 
 % diferenciando cada classe.
-plotarGrafico(projecaoTreino, legendaTreino, 1, 2, 'Projecao PCA conjunto de treino');
-plotarGrafico(projecaoTeste, legendaTeste, 1, 2, 'Projecao PCA conjunto de teste');
-% Calcular a taxa de acerto utilizando as duas características extraídas com PCA.
-resultadoPCA = classificarKNN( projecaoTeste, projecaoTreino, legendaTeste, legendaTreino );
+plotarGrafico(projecaoTreino, legendaTreino, 1, 2, '');
+plotarGrafico(projecaoTeste, legendaTeste, 1, 2);

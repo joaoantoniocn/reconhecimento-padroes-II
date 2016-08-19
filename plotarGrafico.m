@@ -1,4 +1,4 @@
-function [ ] = plotarGrafico( base, legenda, dimensao1, dimensao2 )
+function [ ] = plotarGrafico( base, legenda, dimensao1, dimensao2, titleName )
 %PLOTARGRAFICO Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -15,12 +15,16 @@ function [ ] = plotarGrafico( base, legenda, dimensao1, dimensao2 )
             virginica = [virginica ; base(i, dimensao1) base(i, dimensao2)];
         end           
     end
+    figure;
+    graficoSetosa = scatter(setosa(:, 1), setosa(:, 2), 10, 'b');
     
-    scatter(setosa(:, 1), setosa(:, 2), 10, 'b');
     hold on;
-    scatter(versicolo(:, 1), versicolo(:, 2), 10, 'r');
-    scatter(virginica(:, 1), virginica(:, 2), 10, 'g');
+    graficoVersicolo = scatter(versicolo(:, 1), versicolo(:, 2), 10, 'r');
     
+    graficoVirginica = scatter(virginica(:, 1), virginica(:, 2), 10, 'g');
+    
+    legend([graficoSetosa, graficoVersicolo, graficoVirginica ], 'Setosa', 'Versicolo', 'Virginica');
+    title(titleName);
     
     
 end
