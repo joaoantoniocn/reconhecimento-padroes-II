@@ -1,38 +1,57 @@
-function [ treino, legendaTreino, teste, legendaTeste ] = separaBase( base, legenda )
+function [ treino, legendaTreino, teste, legendaTeste ] = separaBase( base, legenda,  quantidadeTeste, indiceFolder, classes)
 %SEPARABASE recebe a base completa junto com sua legenda, separa a base em
 % treino e teste.
-% Utilizar os 10 primeiros exemplos de cada classe como a base de teste (30 exemplos de teste) e
-% os outros 120 exemplos como conjunto de treino.
-    
-    treino = [];
-    legendaTreino = [];
-    teste = [];
-    legendaTeste = [];
+% quantidadeTeste = quantos exemplos vão ser separados para teste
+% indiceFolder = qual o folder a ser separado
+% classes = array com o nome de todas as classes
+%
+% IMPORTANTE:
+% quantidadeTeste * indiceFolder não pode ultrapassar o tamanho da base.
+%
+% Utilizar 'quantidadeTeste' exemplos de cada classe como a base de teste e
+% os outros exemplos como conjunto de treino.
 
-    indiceSetosa = 1;
-    indiceVersicolor = 1;
-    indiceVirginica = 1;
+treino = [];
+legendaTreino = [];
+teste = [];
+legendaTeste = [];
+
+% Um array de tamanho igual ao número de classes da base onde cada posição
+% indica o número de exemplos visto daquela classe. Usado para extrair
+% exemplos em um determinado intervalo dentro de uma classe. 
+indices = ones(1,length(classes)); 
+
+
+for i = 1 : length(base)
     
-    for i = 1 : length(base)
+    % verifica se o i-esimo exemplo foi atribuido a base de teste
+    % 0 = false; 1 = true
+    isTeste = 0;
+    
+    % passa por todas as classes
+    for j = 1 : length(classes)
         
-        if (strcmp(legenda(i),'Iris-setosa') == 1) & (indiceSetosa <= 10)           
-            teste = [teste ; base(i, :)];
-            legendaTeste = [legendaTeste ; legenda(i)];
-            indiceSetosa = indiceSetosa + 1;            
-        elseif (strcmp(legenda(i),'Iris-versicolor') == 1) & (indiceVersicolor <= 10)           
-            teste = [teste ; base(i, :)];
-            legendaTeste = [legendaTeste ; legenda(i)];
-            indiceVersicolor = indiceVersicolor + 1;
-        elseif (strcmp(legenda(i),'Iris-virginica') == 1) & (indiceVirginica <= 10)           
-            teste = [teste ; base(i, :)];
-            legendaTeste = [legendaTeste ; legenda(i)];
-            indiceVirginica = indiceVirginica + 1;
-        else
-            treino = [treino ; base(i, :)];
-            legendaTreino = [legendaTreino ; legenda(i)];
-        end    
-        
+        % verifica se o exemplo i pertence a classe j
+        if (strcmp(legenda(i), classes(j)) == 1) 
+            
+            % verificando se está entre o intervalo esperado daquele folder
+            if (indices(j) > (quantidadeTeste*indiceFolder) - quantidadeTeste) & (indices(j) <= quantidadeTeste*indiceFolder)
+                teste = [teste ; base(i, :)];
+                legendaTeste = [legendaTeste ; legenda(i)];
+                isTeste = 1;
+            end
+            
+            indices(j) = indices(j) + 1;          
+        end
+    end
+    
+    % se o exemplo i nao foi atribuido a base de teste, ele sera atribuido
+    % como treino.
+    if isTeste == 0
+        treino = [treino ; base(i, :)];
+        legendaTreino = [legendaTreino ; legenda(i)];
     end    
+end
 
 end
 

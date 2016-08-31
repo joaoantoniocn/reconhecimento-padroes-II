@@ -3,7 +3,8 @@ clear;
 % carregar base
 [ matriz, legenda] = lerBase( './base/iris.txt' );
 % separar treino e teste
-[ treino, legendaTreino, teste, legendaTeste ] =  separaBase( matriz, legenda );
+nameClasses = [cellstr('Iris-setosa') cellstr('Iris-versicolor') cellstr('Iris-virginica')];
+[ treino, legendaTreino, teste, legendaTeste ] =  separaBase( matriz, legenda, 10, 1, nameClasses );
 % calcular taxa de acerto usando 1-NN (4 dimensoes)
 resultado = classificarKNN( teste, treino, legendaTeste, legendaTreino );
 % plotar grafico das duas primeiras dimensoes do conjunto de treino
