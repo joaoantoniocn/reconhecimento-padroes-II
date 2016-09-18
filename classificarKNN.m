@@ -4,7 +4,7 @@ function [ acertos ] = classificarKNN( teste, treino, legendaTeste, legendaTrein
 
     acertos = 0;
     
-    for i = 1 : length(teste)
+    for i = 1 : length(teste(:, 1))
         result = knnclassify(teste(i, :), treino, legendaTreino);
         
         if (strcmp(result,legendaTeste(i)) == 1)
