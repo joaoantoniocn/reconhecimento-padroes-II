@@ -1,4 +1,4 @@
-function [ pca ] = PCA(base)
+function [ pca,  autovalores] = PCA(base)
 % Calcula PCA para base de dados
 %   Detailed explanation goes here
     
